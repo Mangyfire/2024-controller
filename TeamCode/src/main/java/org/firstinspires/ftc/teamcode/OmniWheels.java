@@ -100,7 +100,7 @@ public class OmniWheels extends LinearOpMode {
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses START)
-        telemetry.addData("High Five", "We RRoboted!!!");
+        telemetry.addData("High Five", "We Roboted!!!");
         telemetry.update();
 
         waitForStart();
