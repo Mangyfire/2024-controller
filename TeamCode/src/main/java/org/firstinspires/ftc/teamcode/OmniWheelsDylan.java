@@ -64,9 +64,9 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="OmniWheels 0.1", group="OmniOp")
+@TeleOp(name="OmniWheelsDylan 0.1", group="OmniOp")
 @Disabled
-public class OmniWheels extends LinearOpMode {
+public class OmniWheelsDylan extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 wheel motors.
     private ElapsedTime runtime = new ElapsedTime();
