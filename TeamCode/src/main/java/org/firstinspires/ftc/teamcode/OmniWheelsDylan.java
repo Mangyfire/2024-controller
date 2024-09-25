@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /*
  * This file contains an example of a Linear "OpMode".
@@ -67,16 +68,18 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Disabled
 public class OmniWheels extends LinearOpMode {
 
-    // Declare OpMode members for each of the 4 motors.
+    // Declare OpMode members for each of the 4 wheel motors.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftFrontDrive = null;
     private DcMotor leftBackDrive = null;
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
+
+    // ARM
     private DcMotor Armpit = null;
     private DcMotor Elbow = null;
     private DcMotor ArmRotation = null;
-
+    private Servo handgrip = null;
 
     @Override
     public void runOpMode() {
@@ -90,7 +93,7 @@ public class OmniWheels extends LinearOpMode {
         Armpit = hardwareMap.get(DcMotor.class, "Armpit");
         Elbow = hardwareMap.get(DcMotor.class, "Elbow");
         ArmRotation = hardwareMap.get(DcMotor.class, "ArmRotation");
-
+        handgrip = hardwarewareMap.get(Servo.class, "third-servo");
 
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
@@ -102,13 +105,21 @@ public class OmniWheels extends LinearOpMode {
         // when you first test your robot, push the left joystick forward and observe the direction the wheels turn.
         // Reverse the direction (flip FORWARD <-> REVERSE ) of any wheel that runs backward
         // Keep testing until ALL the wheels move the robot forward when you push the left joystick forward.
+
+        // Wheel motor directions
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         Armpit.setDirection(DcMotor.Direction.FORWARD);
         Elbow.setDirection(DcMotor.Direction.FORWARD);
-      
+
+        // handgrip config
+        Static final double INCREMENT 0.01;
+        Static final int CYCLEMS = 50;
+        Static final double MAX_POS = 1.0;
+        Static final double MIN_POS = 0.0;
+
         // Wait for the game to start (driver presses START)
         telemetry.addData("High Five", "We Roboted!!!");
         telemetry.update();
