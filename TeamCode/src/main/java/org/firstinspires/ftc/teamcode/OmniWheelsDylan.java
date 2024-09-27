@@ -130,14 +130,26 @@ public class OmniWheelsDylan extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             double max;
+            
+            // MOVEMENT CONTROLLS 
 
+            // wheel sensitivity controls
+            double  sensitivity  = 1;
+            double  tLinearSpeed = gamepad1.right_trigger;
+            double  tTurnSpeed = gamepad1.left_trigger;
+
+            if (tLinearSpeed == 0){
+                double tLinearSpeed = 1};
+
+            if (tTurnSpeed == 0){
+                double tTurnSpeed = 1};
+
+            // wheel movement controls
+            
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
             double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value -- forward/backward
-            double lateral =  gamepad1.right_stick_x;  // Strafe left/right
-            double yaw     =  gamepad1.left_stick_x; //rotate left/right
-          
-            // IK Arm controlls
-            double rotate = gamepad2.right_stick_x
+            double lateral =  gamepad1.left_stick_x;  // Strafe left/right
+            double yaw     =  gamepad1.right_stick_x; //rotate left/right        
 
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
@@ -146,6 +158,25 @@ public class OmniWheelsDylan extends LinearOpMode {
             double leftBackPower   = axial - lateral + yaw;
             double rightBackPower  = axial + lateral - yaw;
 
+
+            // Grip control
+
+            boolean grip   = right_bumper;
+            boolean ungrip = left_bumper;
+
+            if (grip == true) {
+                handgrip.setPosition(Math.min(1.0,handgrip.getPosition()+0.01));
+            }
+            
+            if (ungrip == true) {
+                handgrip.setPosition(Math.min(0.0,handgrip.getPosition()-0.01));
+            }
+
+            // Arm sensitivity
+
+            
+
+            
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
             max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
@@ -190,3 +221,4 @@ public class OmniWheelsDylan extends LinearOpMode {
         }
     }}
  
+// -.. -.-- ..-. .- -.
