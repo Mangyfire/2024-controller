@@ -35,6 +35,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
+import java.util.List;
+import java.util.ArrayList;
 
 /*
  * This file contains an example of a Linear "OpMode".
@@ -75,12 +77,15 @@ public class OmniWheelsDylan extends LinearOpMode {
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
 
-    // ARM
+    // Declare OpMode members for each of the 4 arm motors.
     private DcMotor Armpit = null;
     private DcMotor Elbow = null;
     private DcMotor ArmRotation = null;
     private Servo handgrip = null;
 
+    list<Object> allDevices = new ArrayList<>()
+    list<Servo> 
+    
     @Override
     public void runOpMode() {
 
@@ -94,6 +99,16 @@ public class OmniWheelsDylan extends LinearOpMode {
         Elbow = hardwareMap.get(DcMotor.class, "Elbow");
         ArmRotation = hardwareMap.get(DcMotor.class, "ArmRotation");
         handgrip = hardwarewareMap.get(Servo.class, "third-servo");
+
+        allMotors.add(leftFrontDrive);
+        allMotors.add(rightFrontDrive);
+        allMotors.add(rightBackDrive);
+        allMotors.add(leftBackDrive);
+        allMotors.add(Armpit);
+        allMotors.add(Elbow);
+        allMotors.add(ArmRotation);
+
+        allServos.add(handgrip);
 
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
@@ -134,7 +149,7 @@ public class OmniWheelsDylan extends LinearOpMode {
             // MOVEMENT CONTROLLS 
 
             // wheel sensitivity controls
-            double  sensitivity  = 1;
+            double  wsens  = 1;
             double  tLinearSpeed = gamepad1.right_trigger;
             double  tTurnSpeed = gamepad1.left_trigger;
 
@@ -147,17 +162,17 @@ public class OmniWheelsDylan extends LinearOpMode {
             // wheel movement controls
             
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
-            double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value -- forward/backward
+            double axial   = -gamepad1.left_stick_y *;  // Note: pushing stick forward gives negative value -- forward/backward
             double lateral =  gamepad1.left_stick_x;  // Strafe left/right
             double yaw     =  gamepad1.right_stick_x; //rotate left/right        
 
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
-            double leftFrontPower  = axial + lateral + yaw;
-            double rightFrontPower = axial - lateral - yaw;
-            double leftBackPower   = axial - lateral + yaw;
-            double rightBackPower  = axial + lateral - yaw;
-
+            
+            double leftFrontPower  = (axial * wsens * tLinearSpeed) + (lateral * wsens * tlinearSpeed) + (yaw * wsens * tTurnSpeed);
+            double rightFrontPower = (axial * wsens * tLinearSpeed) - (lateral * wsens * tlinearSpeed) - (yaw * wsens * tTurnSpeed);
+            double leftBackPower   = (axial * wsens * tLinearSpeed) - (lateral * wsens * tlinearSpeed) + (yaw * wsens * tTurnSpeed);
+            double rightBackPower  = (axial * wsens * tLinearSpeed) + (lateral * wsens * tlinearSpeed) - (yaw * wsens * tTurnSpeed);
 
             // Grip control
 
@@ -173,10 +188,11 @@ public class OmniWheelsDylan extends LinearOpMode {
             }
 
             // Arm sensitivity
-
+            double  asens  = 1;
+            double  t2LinearSpeed = gamepad2.right_trigger;
+            double  t2TurnSpeed = gamepad2.left_trigger;
             
 
-            
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
             max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
@@ -214,11 +230,40 @@ public class OmniWheelsDylan extends LinearOpMode {
             rightBackDrive.setPower(rightBackPower);
 
             // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
-            telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
+            // telemetry.addData("Status", "Run Time: " + runtime.toString());
+            // telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
+            // telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);\
+
+            for (DcMotor disMotor in allMotors) {
+                telemetry.addData("MotorSpeed" thisMotor.getSpeed());
+            }
+            for (Servo thisServo in allServos) {
+                telemetry.addData("ServoPosition" thisServo.getPosition());
+            }
+            telemetry.addData ("Axial", axial);
+            telemetry.addData ("Lateral", lateral);
+            telemetry.addData ("Yaw", yaw);
+            
             telemetry.update();
         }
     }}
  
-// -.. -.-- ..-. .- -.
+
+/*
+index (may be inacurate (if so command f))
+
+72     Declare OpMode members for each of the 4 wheel motors. 
+79     Declare OpMode members for each of the 4 arm motors.
+93     gets hardware maps for motors
+112    Wheel motor directions
+120    handgrip config
+126    Wait for the game to start (driver presses START) + telemetry
+137    Movement controls start
+139    wheel sensitivity controls
+150    wheel movement controls
+165    Grip control
+
+*/
+
+//Editors
+//-.. -.-- ..-. .- -.
