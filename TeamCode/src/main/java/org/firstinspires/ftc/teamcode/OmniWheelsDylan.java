@@ -191,6 +191,11 @@ public class OmniWheelsDylan extends LinearOpMode {
             double  asens  = 1;
             double  t2LinearSpeed = gamepad2.right_trigger;
             double  t2TurnSpeed = gamepad2.left_trigger;
+
+            //Arm control
+            double ArmSegment1   = gamepad2.right_stick_y; 
+            double ArmRotate =  gamepad2.right_stick_x;  
+            double ArmSegment2 =  gamepad2.left_stick_y;  
             
 
             // Normalize the values so no wheel power exceeds 100%
@@ -229,6 +234,11 @@ public class OmniWheelsDylan extends LinearOpMode {
             leftBackDrive.setPower(leftBackPower);
             rightBackDrive.setPower(rightBackPower);
 
+            //Send calculated power to Arm
+            Armpit.setPower(ArmSegment1)
+            Elbow.setPower(ArmSegment2)
+            ArmRotation.setPower(ArmRotate)
+
             // Show the elapsed game time and wheel power.
             // telemetry.addData("Status", "Run Time: " + runtime.toString());
             // telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
@@ -243,6 +253,7 @@ public class OmniWheelsDylan extends LinearOpMode {
             telemetry.addData ("Axial", axial);
             telemetry.addData ("Lateral", lateral);
             telemetry.addData ("Yaw", yaw);
+
             
             telemetry.update();
         }
