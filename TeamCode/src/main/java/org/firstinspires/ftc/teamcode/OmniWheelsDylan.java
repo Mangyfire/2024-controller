@@ -83,8 +83,8 @@ public class OmniWheelsDylan extends LinearOpMode {
     private DcMotor ArmRotation = null;
     private Servo handgrip = null;
 
-    list<Object> allDevices = new ArrayList<>()
-    list<Servo> 
+    list<DCMotor> allMotors = new ArrayList<>();
+    list<Servo> allServos = new ArrayList<>();
     
     @Override
     public void runOpMode() {
@@ -130,10 +130,10 @@ public class OmniWheelsDylan extends LinearOpMode {
         Elbow.setDirection(DcMotor.Direction.FORWARD);
 
         // handgrip config
-        Static final double INCREMENT 0.01;
-        Static final int CYCLEMS = 50;
-        Static final double MAX_POS = 1.0;
-        Static final double MIN_POS = 0.0;
+        final double INCREMENT = 0.01;
+        final int CYCLEMS = 50;
+        final double MAX_POS = 1.0;
+        final double MIN_POS = 0.0;
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("High Five", "We Roboted!!!");
@@ -154,15 +154,15 @@ public class OmniWheelsDylan extends LinearOpMode {
             double  tTurnSpeed = gamepad1.left_trigger;
 
             if (tLinearSpeed == 0){
-                double tLinearSpeed = 1};
-
+                double tLinearSpeed = 1;
+            }
             if (tTurnSpeed == 0){
-                double tTurnSpeed = 1};
-
+                double tTurnSpeed = 1;
+            }
             // wheel movement controls
             
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
-            double axial   = -gamepad1.left_stick_y *;  // Note: pushing stick forward gives negative value -- forward/backward
+            double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value -- forward/backward
             double lateral =  gamepad1.left_stick_x;  // Strafe left/right
             double yaw     =  gamepad1.right_stick_x; //rotate left/right        
 
@@ -235,20 +235,20 @@ public class OmniWheelsDylan extends LinearOpMode {
             rightBackDrive.setPower(rightBackPower);
 
             //Send calculated power to Arm
-            Armpit.setPower(ArmSegment1)
-            Elbow.setPower(ArmSegment2)
-            ArmRotation.setPower(ArmRotate)
+            Armpit.setPower(ArmSegment1);
+            Elbow.setPower(ArmSegment2);
+            ArmRotation.setPower(ArmRotate);
 
             // Show the elapsed game time and wheel power.
             // telemetry.addData("Status", "Run Time: " + runtime.toString());
             // telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
-            // telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);\
+            // telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
 
-            for (DcMotor disMotor in allMotors) {
-                telemetry.addData("MotorSpeed" thisMotor.getSpeed());
+            for (DcMotor disMotor : allMotors) {
+                telemetry.addData("MotorSpeed", thisMotor.getSpeed());
             }
-            for (Servo thisServo in allServos) {
-                telemetry.addData("ServoPosition" thisServo.getPosition());
+            for (Servo thisServo : allServos) {
+                telemetry.addData("ServoPosition", thisServo.getPosition());
             }
             telemetry.addData ("Axial", axial);
             telemetry.addData ("Lateral", lateral);
