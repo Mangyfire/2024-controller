@@ -176,8 +176,8 @@ public class OmniWheelsDylan extends LinearOpMode {
 
             // Grip control
 
-            boolean grip   = right_bumper;
-            boolean ungrip = left_bumper;
+            boolean grip   = gamepad1.right_bumper;
+            boolean ungrip = gamepad1.left_bumper;
 
             if (grip == true) {
                 handgrip.setPosition(Math.min(1.0,handgrip.getPosition()+0.01));
