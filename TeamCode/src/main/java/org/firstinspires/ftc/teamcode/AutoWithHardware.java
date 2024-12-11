@@ -75,8 +75,13 @@ public class AutoWithHardware extends LinearOpMode {
     public void runOpMode() {
         double drive        = 0;
         double turn         = 0;
-        double arm          = 0;
-        double handOffset   = 0;
+        double strafe       = 0;
+
+        double INCH_TO_TICK = 20.0; //untested value
+        double TICK_TO_INCH = 0.05; // diddo^
+
+        // double arm          = 0;
+        // double handOffset   = 0;
 
         // initialize all the hardware, using the hardware class. See how clean and simple this is?
         robot.init();
