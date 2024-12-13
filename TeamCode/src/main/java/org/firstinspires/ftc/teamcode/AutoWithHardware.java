@@ -34,7 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-/*
+/*  
  * This OpMode illustrates how to use an external "hardware" class to modularize all the robot's sensors and actuators.
  * This approach is very efficient because the same hardware class can be used by all of your teleop and autonomous OpModes
  * without requiring many copy & paste operations.  Once you have defined and tested the hardware class with one OpMode,
@@ -97,9 +97,14 @@ public class AutoWithHardware extends LinearOpMode {
             //robot.driveRobot(drive, strafe, turn) used for all around robot control
 
             //yes I'm running into the wall
-            robot.driveRobot(0, 12*inches*12, 0);
-            sleep(5);
+            robot.driveRobot(0, 1, 0);
+            sleep(12*inches*12);
+            robot.driveRobot(0, 0, 0);
+            sleep(15);
             robot.driveRobot(1, 0, 0);
+            sleep(12*inches);
+            robot.driveRobot(0, 0, 0);
+            sleep(15);
 
             
             //janky grabbing
@@ -116,31 +121,41 @@ public class AutoWithHardware extends LinearOpMode {
             
             //get cube to drop chamber
             robot.setScrewPower(30);
-            sleep(10);
+            sleep(15);
             robot.toggleSweeper();
-            sleep(10);
+            sleep(15);
             robot.setScrewPower(0);
+            sleep(15)
 
                 
             //drive robot back
             robot.driveRobot(-1, 0, 0);
+            sleep(12*inches);
+            robot.driveRobot(0, -1, 0);
+            sleep(12*inches*12);
+            robot.driveRobot(0, 0, 0);
             sleep(15);
-            robot.driveRobot(0, -12*inches*12, 0);
 
             //turn 180
             robot.driveRobot(0, 1, 0);
+            sleep(12*inches);
+            robot.driveRobot(0, 0, 0);
             sleep(15);
-            robot.driveRobot(0, 0, 180);
+            robot.driveRobot(0, 0, 1);
+            sleep(180*degree);
+            robot.driveRobot(0, 0, 0);
             sleep(15);
+            
 
             //jam into corner
             robot.driveRobot(1, 1, 0);
-            sleep(20)
-
-                //vvvvvvvvvvvvvvvvvvvvvvvvvvvvv\\
-                //remember code shit fix idiot;\\
-                //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\
-        
+            sleep(12*inches);
+            robot.driveRobot(0, 0, 0);
+            
+            // vvvvvvvvvvvvvvvvv \\
+            // > Add dunk code < \\
+            // ^^^^^^^^^^^^^^^^^ \\
+            
 
             // Send telemetry messages to explain controls and show robot status
             telemetry.addData("Drive", "Left Stick");
@@ -160,3 +175,24 @@ public class AutoWithHardware extends LinearOpMode {
         }
     }
 }
+
+//  _   _            _   _                
+// | \ | | ___  _ __| |_| |__             
+// |  \| |/ _ \| '__| __| '_ \            
+// | |\  | (_) | |  | |_| | | |           
+// |_|_\_|\___/|_|   \__|_| |_|           
+// | ____|   _  __ _  ___ _ __   ___      
+// |  _|| | | |/ _` |/ _ \ '_ \ / _ \     
+// | |__| |_| | (_| |  __/ | | |  __/     
+// |_____\__,_|\__, |\___|_| |_|\___|     
+//  ____       |___/       _   _          
+// |  _ \ ___ | |__   ___ | |_(_) ___ ___ 
+// | |_) / _ \| '_ \ / _ \| __| |/ __/ __|
+// |  _ < (_) | |_) | (_) | |_| | (__\__ \
+// |_|_\_\___/|_.__/ \___/ \__|_|\___|___/
+// |  _ \(_)_   _(_)___(_) ___  _ __      
+// | | | | \ \ / / / __| |/ _ \| '_ \     
+// | |_| | |\ V /| \__ \ | (_) | | | |    
+// |____/|_| \_/ |_|___/_|\___/|_| |_|    
+
+
