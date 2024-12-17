@@ -154,13 +154,13 @@ public class AutoWithHardware extends LinearOpMode {
             
             
             //makes robot stand up 20 somethings and lift the screw 20 somethings
-            robot.standUp(20)
-            robot.liftScrew(20)
-            sleep(15)
+            robot.standUp(20);
+            robot.liftScrew(20);
+            sleep(15);
             //put drop code here <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            robot.standUp(-20)
-            robot.liftScrew(-20)
-            sleep(15)
+            robot.standUp(-20);
+            robot.liftScrew(-20);
+            sleep(15);
 
             // Send telemetry messages to explain controls and show robot status
             telemetry.addData("Drive", "Left Stick");
