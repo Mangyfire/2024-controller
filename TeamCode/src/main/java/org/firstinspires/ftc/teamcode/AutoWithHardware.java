@@ -152,10 +152,15 @@ public class AutoWithHardware extends LinearOpMode {
             sleep(12*inches);
             robot.driveRobot(0, 0, 0);
             
-            // vvvvvvvvvvvvvvvvv \\
-            // > Add dunk code < \\
-            // ^^^^^^^^^^^^^^^^^ \\
             
+            //makes robot stand up 20 somethings and lift the screw 20 somethings
+            robot.standUp(20)
+            robot.liftScrew(20)
+            sleep(15)
+            //put drop code here <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            robot.standUp(-20)
+            robot.liftScrew(-20)
+            sleep(15)
 
             // Send telemetry messages to explain controls and show robot status
             telemetry.addData("Drive", "Left Stick");
@@ -175,7 +180,8 @@ public class AutoWithHardware extends LinearOpMode {
         }
     }
 }
-/* _   _            _   _                
+/*
+ _   _            _   _                
 | \ | | ___  _ __| |_| |__             
 |  \| |/ _ \| '__| __| '_ \            
 | |\  | (_) | |  | |_| | | |           
